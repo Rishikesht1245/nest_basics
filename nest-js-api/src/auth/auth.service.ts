@@ -3,11 +3,13 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import * as argon from "argon2";
 import { AuthDto } from './dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 // provides need to be defined with the Injectable decorator
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService, private jwt: JwtService, private config:ConfigService) { }
 
   async signup(dto: AuthDto) {
     // generate the hashed password 
@@ -30,9 +32,9 @@ export class AuthService {
       // return the saved user
       return user;
     } catch (error) {
-      if(error instanceof PrismaClientKnownRequestError){
+      if (error instanceof PrismaClientKnownRequestError) {
         // prisma error codes
-        if(error.code === 'P2002'){
+        if (error.code === 'P2002') {
           // forbidden error 403
           throw new ForbiddenException("Credentials taken")
         }
@@ -41,19 +43,31 @@ export class AuthService {
     }
   }
 
-  async signin(dto:AuthDto) {
-    const user = await this.prisma.user.findUnique({where : {email : dto.email}});
+  async signin(dto: AuthDto) {
+    const user = await this.prisma.user.findUnique({ where: { email: dto.email } });
 
-    if(!user) throw new ForbiddenException("Credentials Incorrect");
+    if (!user) throw new ForbiddenException("Credentials Incorrect");
 
     // Compare password
     const pwMatches = await argon.verify(user.hash, dto.password);
 
     // password incorrect
-    if(!pwMatches) throw new ForbiddenException("Password doesn't match!");
+    if (!pwMatches) throw new ForbiddenException("Password doesn't match!");
 
-    delete user.hash;
     // send back the user
-    return user;
+    return this.signToken(user.id, user.email);
+  }
+
+  async signToken(userId: number, email: string): Promise<{access_token : string}> {
+    const payload = {
+      sub: userId,
+      email: email,
+    };
+    const token =  await this.jwt.signAsync(payload, { expiresIn: '15m', secret: this.config.get("JWT_SECRET")  });
+
+    return {
+      access_token : token
+    }
+    
   }
 }
