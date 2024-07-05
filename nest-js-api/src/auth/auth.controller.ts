@@ -20,7 +20,8 @@ export class AuthController {
   }
 
   @Post('signin')
-  signIn() {
-    return this.authService.signin();
+  // @Body('email') - for accessing specific fields
+  signIn(@Body() dto:AuthDto) {
+    return this.authService.signin(dto);
   }
 }
