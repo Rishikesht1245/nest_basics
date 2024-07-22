@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
+  // this will send the reqeusts to the AuthModule
   imports: [AuthModule],
   controllers: [AppController],
   providers: [AppService],
