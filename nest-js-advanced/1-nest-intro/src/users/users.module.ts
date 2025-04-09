@@ -6,7 +6,7 @@ import { Module } from "@nestjs/common";
     // other modules
     imports : [],
     // controllers
-    controllers : [],
+    controllers : [UserModule],
     // services
     providers : []
 })
