@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common";
+import { UserController } from "./users.controller";
 
 // modules are decorated with @Module decorator.
 // we need to pass the meta data objects
@@ -6,7 +7,7 @@ import { Module } from "@nestjs/common";
     // other modules
     imports : [],
     // controllers
-    controllers : [UserModule],
+    controllers : [UserController],
     // services
     providers : []
 })
