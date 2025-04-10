@@ -23,13 +23,15 @@ export class UserService {
         id : 3,
       name: 'Shashi',
       age: 38,
-      gender: 'male',
+      gender: 'female',
       isMarried: false,
     },
   ];
 
 
-  getAllUsers(){
+  getAllUsers(gender ?:string){
+    if(gender)
+        return this.users.filter((user) => user.gender === gender)
     return this.users;
   }
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { UserService } from './users.service';
 
 // we can mention the url enpoint here
@@ -7,8 +7,9 @@ export class UserController {
   userService = new UserService();
 
   @Get()
-  getUsers() {
-    return this.userService.getAllUsers();
+  getUsers(@Query('gender') gender : any) {
+    console.log(gender, 'query')
+    return this.userService.getAllUsers(gender);
   }
 
   // id is mandatory, rest are optional
