@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Controller,
+  DefaultValuePipe,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { UserService } from './users.service';
 
 // we can mention the url enpoint here
@@ -7,16 +15,24 @@ export class UserController {
   userService = new UserService();
 
   @Get()
-  getUsers(@Query('gender') gender : any) {
-    console.log(gender, 'query')
-    return this.userService.getAllUsers(gender);
+  getUsers(
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+    @Query('page',  new DefaultValuePipe(1), ParseIntPipe) page: number,
+  ) {
+    console.log({limit, page})
+    return this.userService.getAllUsers();
   }
 
   // id is mandatory, rest are optional
   @Get(':id/:name{/:gender}')
-  getUserById(@Param('id') id : any){
+  getUserById(@Param('id', ParseIntPipe) id: number) {
     // the value we read from route params will be string
-    return this.userService.getUserById(+id);
+
+    console.log(typeof id, id);
+
+    // pipes : parseIntPipe
+    // to remove the +id (conversion) using pipe to convert string to number
+    return this.userService.getUserById(id);
   }
 
   @Post()
