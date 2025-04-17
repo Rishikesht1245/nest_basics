@@ -1,6 +1,8 @@
 import {
+  Body,
   Controller,
   DefaultValuePipe,
+  ValidationPipe,
   Get,
   Param,
   ParseIntPipe,
@@ -8,6 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { UserService } from './users.service';
+import { CreateUserDTO } from './dto/create-user.dto';
 
 // we can mention the url enpoint here
 @Controller('users')
@@ -36,16 +39,9 @@ export class UserController {
   }
 
   @Post()
-  createUser() {
+  createUser(@Body() user : CreateUserDTO) {
     // business logic present in the service class
-    this.userService.createUser({
-      id: 4,
-      name: 'Ramu',
-      age: 38,
-      gender: 'male',
-      isMarried: false,
-      email : "ramu@gmail.com"
-    });
+    this.userService.createUser(user);
 
     return 'a new user has been created';
   }
