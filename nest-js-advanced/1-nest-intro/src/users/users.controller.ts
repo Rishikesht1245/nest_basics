@@ -44,6 +44,7 @@ export class UserController {
       age: 38,
       gender: 'male',
       isMarried: false,
+      email : "ramu@gmail.com"
     });
 
     return 'a new user has been created';
