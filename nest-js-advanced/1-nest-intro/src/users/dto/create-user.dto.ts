@@ -1,6 +1,7 @@
-import { IsBoolean, IsEmail, IsInt, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator";
+import { IsBoolean, IsEmail, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, MinLength } from "class-validator";
 
 export class CreateUserDTO {
+  @IsNumber()
   id: number;
   
   @IsString({message : "name should be a string value"})
