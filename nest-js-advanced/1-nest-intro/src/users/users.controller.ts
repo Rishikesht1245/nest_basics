@@ -18,7 +18,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 // we can mention the url enpoint here
 @Controller('users')
 export class UserController {
-  userService = new UserService();
+  
+  // nest js will inject the instance of user service using dependency injection
+  constructor(private userService : UserService){
+  }
 
   @Get()
   getUsers(
