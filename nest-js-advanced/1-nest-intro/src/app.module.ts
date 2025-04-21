@@ -9,16 +9,26 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   // import user defined modules here : then only nest js will know those modules are there
   // syncronous connect using for root method
-  imports: [UserModule, TweetModule, AuthModule, TypeOrmModule.forRoot({
-    type :"postgres",
-    entities :[],
-    synchronize : true,
-    host : 'localhost',
-    port : 5433,
-    username : "postgres",
-    password : "admin@123",
-    database : "nestjs"
-  })],
+  imports: [
+    UserModule,
+    TweetModule,
+    AuthModule,
+    TypeOrmModule.forRootAsync({
+      imports : [],
+      inject : [],
+      useFactory: () => ({
+        type: 'postgres',
+        entities: [],
+        synchronize: true,
+        host: 'localhost',
+        port: 5433,
+        username: 'postgres',
+        password: 'admin@123',
+        database: 'nestjs',
+      })
+     
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
