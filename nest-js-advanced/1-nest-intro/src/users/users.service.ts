@@ -8,7 +8,6 @@ export class UserService {
 // class variables
   users: CreateUserDTO[] = [
     {
-        id : 1,
       name: 'Rishi',
       age: 24,
       gender: 'male',
@@ -16,7 +15,6 @@ export class UserService {
       email : "rishi@gmail.com"
     },
     {
-        id : 2,
       name: 'Vasu',
       age: 24,
       gender: 'male',
@@ -24,7 +22,6 @@ export class UserService {
        email : "rishi@gmail.com"
     },
     {
-        id : 3,
       name: 'Shashi',
       age: 38,
       gender: 'female',
@@ -45,8 +42,8 @@ export class UserService {
     return this.users;
   }
 
-  getUserById(id : number){
-    return this.users.find((user) => user.id === id)
+  getUserById(name : string){
+    return this.users.find((user) => user.name === name)
   }
 
   createUser(user :CreateUserDTO ){

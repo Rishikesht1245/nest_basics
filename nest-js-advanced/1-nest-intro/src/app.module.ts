@@ -5,6 +5,7 @@ import { UserModule } from './users/users.module';
 import { TweetModule } from './tweet/tweet.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './users/user.entity';
 
 @Module({
   // import user defined modules here : then only nest js will know those modules are there
@@ -18,7 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       inject : [],
       useFactory: () => ({
         type: 'postgres',
-        entities: [],
+        entities: [User],
         synchronize: true,
         host: 'localhost',
         port: 5433,

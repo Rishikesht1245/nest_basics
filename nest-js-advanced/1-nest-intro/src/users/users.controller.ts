@@ -41,7 +41,7 @@ export class UserController {
 
     // pipes : parseIntPipe
     // to remove the +id (conversion) using pipe to convert string to number
-    return this.userService.getUserById(id);
+    return this.userService.getUserById("hello");
   }
 
   @Post()
