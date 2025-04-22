@@ -1,9 +1,10 @@
-import { IsBoolean, IsEmail, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, MinLength } from "class-validator";
+import { IsBoolean, IsEmail, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, maxLength, MinLength } from "class-validator";
 
 export class CreateUserDTO {
   @IsString({message : "name should be a string value"})
   @IsNotEmpty()
   @MinLength(3, {message: "Name should have a min length of 3"})
+  @MaxLength(100, {message : "Name should be less than 100 chars"})
   name: string;
 
   @IsInt()
@@ -18,6 +19,6 @@ export class CreateUserDTO {
   email: string;
 
   @IsNotEmpty()
-  @IsBoolean()
-  isMarried: boolean;
+  @IsString()
+  password: string;
 }

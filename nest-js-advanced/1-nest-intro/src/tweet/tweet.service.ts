@@ -25,7 +25,7 @@ export class TweetService {
   getTweets(userId: number) {
     const user = this.userService.getUserById("userId")
     const tweets = this.tweets.filter((t) => t.user === userId);
-    const response = tweets.map((t) => ({...t, username : user?.name}));
-    return response
+    // const response = tweets.map((t) => ({...t, username : user?.name}));
+    return {}
   }
 }

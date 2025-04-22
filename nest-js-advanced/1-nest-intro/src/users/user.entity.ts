@@ -5,18 +5,40 @@ export class User{
 
     @PrimaryGeneratedColumn()
     id : number;
-    @Column()
+
+    @Column({
+        type : "varchar",
+        length : 100,
+        nullable : false
+    })
     name : string;
 
-    @Column()
+    @Column({
+        type : "numeric",
+        nullable : false,
+    })
     age : number;
 
-    @Column()
+    @Column({
+        type : "varchar",
+        length : 10,
+        nullable : false,
+    })
     gender : string;
 
-    @Column()
+    @Column({
+        type : "varchar",
+        length : 100,
+        nullable : false,
+        unique : true,
+    })
     email : string;
 
-    @Column()
-    isMarried : boolean;
+    @Column({
+        type : "varchar",
+        length : 100,
+        nullable : false,
+        unique : true,
+    })
+    password : string;
 }

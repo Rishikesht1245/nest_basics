@@ -7,7 +7,7 @@ import { AuthModule } from "src/auth/auth.module";
 // we need to pass the meta data objects
 @Module({
     // other modules
-    imports : [forwardRef(() => AuthModule)],
+    // imports : [forwardRef(() => AuthModule)],
     // controllers
     controllers : [UserController],
     // services

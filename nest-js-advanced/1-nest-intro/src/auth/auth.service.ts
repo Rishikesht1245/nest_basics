@@ -8,11 +8,11 @@ export class AuthService {
     isAuthenticated : boolean =  false;
 
     login(username: string){
-        const user = this.userService.users.find((u => u.name === username))
-        if(user){
-            this.isAuthenticated = true;
-            return 'User_token'
-        }
+        // const user = this.userService.users.find((u => u.name === username))
+        // if(user){
+        //     this.isAuthenticated = true;
+        //     return 'User_token'
+        // }
         return 'NOT_AUTHENTICATED'
 
     }
