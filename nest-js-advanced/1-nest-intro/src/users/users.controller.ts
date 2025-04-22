@@ -48,9 +48,9 @@ export class UserController {
   createUser(@Body() user : CreateUserDTO) {
     // business logic present in the service class
     console.log({user : user instanceof CreateUserDTO})
-    this.userService.createUser(user);
+    const newUser = this.userService.createUser(user);
 
-    return 'a new user has been created';
+    return newUser;
   }
 
 
