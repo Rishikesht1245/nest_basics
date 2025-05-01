@@ -16,6 +16,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
     providers : [UserService],
     // exports : to available in other modules
     exports : [UserService],
+    // importing the entities
     imports : [TypeOrmModule.forFeature([User])]
 })
 export class UserModule{}

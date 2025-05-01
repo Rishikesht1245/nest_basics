@@ -6,6 +6,8 @@ import { TweetModule } from './tweet/tweet.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
+import { ProfileModule } from './profile/profile.module';
+import { Profile } from './profile/profile.entity';
 
 @Module({
   // import user defined modules here : then only nest js will know those modules are there
@@ -19,7 +21,8 @@ import { User } from './users/user.entity';
       inject : [],
       useFactory: () => ({
         type: 'postgres',
-        entities: [User],
+        autoLoadEntities : true,
+        // entities: [User, Profile],
         synchronize: true,
         host: 'localhost',
         port: 5433,
@@ -29,6 +32,7 @@ import { User } from './users/user.entity';
       })
      
     }),
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
